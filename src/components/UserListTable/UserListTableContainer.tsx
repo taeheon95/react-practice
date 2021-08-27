@@ -7,6 +7,7 @@ function UserListContainer({ userList }: { userList: User[] }) {
     return {
       key: user.id,
       name: user.name,
+      username: user.username,
       email: user.email,
     };
   });

@@ -1,6 +1,7 @@
 export interface User {
   id: number;
   name: string;
+  username: string;
   email: string;
   address: Address;
   phone: string;
@@ -28,5 +29,6 @@ export interface Company {
 export interface UserTable {
   key: number;
   name: string;
+  username: string;
   email: string;
 }
