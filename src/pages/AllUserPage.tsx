@@ -1,7 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { userListState } from "../store";
-import { Link } from "react-router-dom";
 import UserListContainer from "../components/UserListTable/UserListTableContainer";
 
 function AllUserPage() {
