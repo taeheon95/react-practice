@@ -8,13 +8,6 @@ function AllUserPage() {
   return (
     <>
       <UserListContainer userList={userList} />
-      {/* {userList.map((user) => (
-        <div>
-          <Link key={user.id} to={`${user.id}`}>
-            {user.name}
-          </Link>
-        </div>
-      ))} */}
     </>
   );
 }

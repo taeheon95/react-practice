@@ -31,4 +31,10 @@ export interface UserTable {
   name: string;
   username: string;
   email: string;
+  street: string;
+  suite: string;
+  city: string;
+  phone: string;
+  website: string;
+  company: Company;
 }
