@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Address, User, UserTable } from "../../types/User";
+import { UserTable } from "../../types/User";
 import { Link } from "react-router-dom";
 import { Table } from "antd";
 

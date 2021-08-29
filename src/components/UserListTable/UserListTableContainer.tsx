@@ -1,9 +1,12 @@
-import React, { ReactElement } from "react";
+import React from "react";
+import { useRecoilState } from "recoil";
+import { userListState } from "../../stores/store";
 import { User, UserTable } from "../../types/User";
 import UserListTablePresenter from "./UserListTablePresenter";
 
-function UserListContainer({ userList }: { userList: User[] }) {
-  const columns = userList.map((user) => {
+function UserListContainer() {
+  const [userList, setUserList] = useRecoilState(userListState);
+  const columns = userList.map((user: User) => {
     return {
       key: user.id,
       name: user.name,
@@ -15,7 +18,7 @@ function UserListContainer({ userList }: { userList: User[] }) {
       phone: user.phone,
       website: user.website,
       company: user.company,
-    };
+    } as UserTable;
   });
   return (
     <>
