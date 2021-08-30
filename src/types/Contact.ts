@@ -16,11 +16,11 @@ export interface ContactItem {
   email: string;
 }
 
-export type EditContact = {
+export interface EditContact {
   id?: number;
   name?: string;
   age?: number;
   description?: string;
   phoneNumber?: string;
   email?: string;
-};
+}
