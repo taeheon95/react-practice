@@ -1,4 +1,5 @@
 export interface Contact {
+  [key: string]: number | string;
   id: number;
   name: string;
   age: number;
