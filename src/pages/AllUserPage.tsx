@@ -1,12 +1,8 @@
 import React from "react";
 import UserListContainer from "../components/UserListTable/UserListTableContainer";
 
-function AllUserPage() {
-  return (
-    <>
-      <UserListContainer />
-    </>
-  );
-}
+const AllUserPage: React.FC = () => {
+  return <UserListContainer />;
+};
 
 export default AllUserPage;
