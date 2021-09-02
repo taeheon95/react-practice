@@ -1,5 +1,5 @@
-import React from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import { removeContact, updateContact } from "../../apis/contactAPI";
 import { contactListState, selectedContactState } from "../../stores/contact";
 import { Contact, ContactItem } from "../../types/Contact";
@@ -7,9 +7,39 @@ import ContactListTablePresenter from "./ContactListTablePresenter";
 
 const ContactListTableContainer = () => {
   const [contactList, setContactList] = useRecoilState(contactListState);
-  const setContact = useSetRecoilState(selectedContactState);
+  const [contact, setContact] = useRecoilState(selectedContactState);
 
-  const contactUpdate = async (id: number, newContact: Contact) => {
+  const [contactItemList, setContactItemList] = useState<ContactItem[]>([]);
+
+  useEffect(() => {
+    const contactItems: ContactItem[] = contactList.map((contact) => {
+      const entries = Object.entries(contact).map(([key, value]) => [
+        key === "id" ? "key" : key,
+        value,
+      ]);
+      return Object.fromEntries(entries);
+    });
+    setContactItemList(contactItems);
+
+    return () => {};
+  }, [contactList]);
+
+  const contactUpdate = (willUpdateContact: ContactItem) => {
+    const entries = Object.entries(willUpdateContact).map(([key, value]) => [
+      key === "key" ? "id" : key,
+      value,
+    ]);
+    const editContact = { ...Object.fromEntries(entries) };
+    setContact(editContact);
+  };
+
+  const handleEdit = (keyString: string, value: string) => {
+    const editedContact: Contact = Object.assign({}, contact);
+    editedContact[keyString] = keyString === "age" ? Number(value) : value;
+    setContact(editedContact);
+  };
+
+  const saveEdit = async (id: number, newContact: Contact) => {
     const response = await updateContact(id, newContact);
     if (response) {
       setContactList(
@@ -20,29 +50,18 @@ const ContactListTableContainer = () => {
 
   const contactDelete = async (id: number) => {
     const response = await removeContact(id);
+    console.log(response);
     if (response) {
       setContactList(contactList.filter((contact) => contact.id !== id));
     }
   };
 
-  const deleteContactMany = async (idList: number[]) => {};
-
-  const contactItemList: ContactItem[] = contactList.map((contact) => ({
-    key: contact.id,
-    name: contact.name,
-    description: contact.description,
-    age: contact.age,
-    phoneNumber: contact.phoneNumber,
-    email: contact.email,
-  }));
-
   return (
-    <div>
-      <ContactListTablePresenter
-        contactList={contactItemList}
-        deleteContact={contactDelete}
-      />
-    </div>
+    <ContactListTablePresenter
+      contactList={contactItemList}
+      updateContact={contactUpdate}
+      deleteContact={contactDelete}
+    />
   );
 };
 

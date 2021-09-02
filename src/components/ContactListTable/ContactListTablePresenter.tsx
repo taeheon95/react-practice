@@ -2,13 +2,16 @@ import { Button, Table } from "antd";
 import React from "react";
 import { ContactItem } from "../../types/Contact";
 import { ColumnsType } from "antd/es/table";
+import ColumnButtons from "./ColumnButtons";
 
 const ContactListTablePresenter = ({
   contactList,
   deleteContact,
+  updateContact,
 }: {
   contactList: ContactItem[];
   deleteContact: Function;
+  updateContact: Function;
 }) => {
   const columns: ColumnsType<ContactItem> = [
     {
@@ -39,37 +42,23 @@ const ContactListTablePresenter = ({
     {
       title: "Actions",
       key: "action",
+      width: "10%",
       render: (text, record) => (
-        <>
-          <Button type="link" onClick={(e) => {}}>
-            update
-          </Button>
-          &nbsp;
-          <Button
-            type="link"
-            onClick={(e) => {
-              deleteContact(record.key);
-            }}
-            danger
-          >
-            delete
-          </Button>
-        </>
+        <ColumnButtons
+          record={record}
+          updateContact={updateContact}
+          deleteContact={deleteContact}
+        />
       ),
     },
   ];
   return (
     <>
-      <div style={{ marginBottom: "16px" }}>
-        <Button type="link">Add</Button>
-        <Button type="link" danger>
-          delete
-        </Button>
-      </div>
       <Table
         columns={columns}
         dataSource={contactList}
         pagination={{ position: ["bottomRight"] }}
+        bordered
       />
     </>
   );

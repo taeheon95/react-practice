@@ -16,7 +16,7 @@ export const getContact = async (id: number | string) => {
 
 export const removeContact = async (id: number | string) => {
   const response = await axios.delete(`${contactURL}/${id}`);
-  return response.status;
+  return response.status === 200;
 };
 
 export const updateContact = async (id: number | string, contact: Contact) => {
