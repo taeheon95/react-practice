@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import React from "react";
 import { removeContact, updateContact } from "../../apis/contactAPI";
-import { contactListState, selectedContactState } from "../../stores/contact";
 import { Contact, ContactItem } from "../../types/Contact";
 import ContactListTablePresenter from "./ContactListTablePresenter";
+import { Form } from "antd";
 
-const ContactListTableContainer = () => {
-  const [contactList, setContactList] = useRecoilState(contactListState);
-  const [contact, setContact] = useRecoilState(selectedContactState);
-
-  const [contactItemList, setContactItemList] = useState<ContactItem[]>([]);
-
-  useEffect(() => {
-    const contactItems: ContactItem[] = contactList.map((contact) => {
-      const entries = Object.entries(contact).map(([key, value]) => [
-        key === "id" ? "key" : key,
-        value,
-      ]);
-      return Object.fromEntries(entries);
-    });
-    setContactItemList(contactItems);
-
-    return () => {};
-  }, [contactList]);
+const ContactListTableContainer = ({
+  contact,
+  contactList,
+  contactItemList,
+  setContact,
+  setContactList,
+  setContactItemList,
+}: {
+  contact: Contact | null;
+  contactList: Contact[];
+  contactItemList: ContactItem[];
+  setContact: Function;
+  setContactList: Function;
+  setContactItemList: Function;
+}) => {
+  const [form] = Form.useForm();
 
   const contactUpdate = (willUpdateContact: ContactItem) => {
     const entries = Object.entries(willUpdateContact).map(([key, value]) => [

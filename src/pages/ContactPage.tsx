@@ -1,10 +1,10 @@
 import React from "react";
-import ContactListTableContainer from "../components/ContactListTable/ContactListTableContainer";
+import ContactListTable from "../components/ContactListTable";
 
 const ContactPage: React.FC = () => {
   return (
     <>
-      <ContactListTableContainer />
+      <ContactListTable />
     </>
   );
 };
