@@ -11,7 +11,7 @@ ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
       <BrowserRouter>
-        <Suspense fallback={Spin}>
+        <Suspense fallback={<Spin />}>
           <App />
         </Suspense>
       </BrowserRouter>
